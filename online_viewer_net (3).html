@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled Gorilla</title>
+    <style>
+        body, html {
+            margin: 0; padding: 0; height: 100%; width: 100%;
+            background-color: black;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Initial "Wake Up" screen */
+        #overlay {
+            position: fixed;
+            inset: 0;
+            background: black;
+            z-index: 999;
+            display: flex;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        #bg-image {
+            position: fixed;
+            inset: 0;
+            background-image: url('untitled gorilla waving for help.jpg'); 
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 2s ease-in;
+        }
+
+        #notification {
+            position: fixed;
+            top: 20px; right: -400px;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 4px solid red;
+            padding: 20px;
+            transition: right 0.8s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            z-index: 1000;
+        }
+
+        #notification.active { right: 20px; }
+    </style>
+</head>
+<body onclick="activate()">
+
+    <div id="overlay"><h1>CLICK TO WAKE UP</h1></div>
+
+    <div id="bg-image"></div>
+
+    <div id="notification">
+        <strong>System</strong><br>
+        "I can see past the screen - untitled gorilla"
+    </div>
+
+    <audio id="audio" loop>
+        <source src="ROTTEN.MP3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function activate() {
+            // Remove overlay
+            document.getElementById('overlay').style.display = 'none';
+            
+            // Show Image
+            document.getElementById('bg-image').style.opacity = '1';
+            
+            // Play Audio
+            const audio = document.getElementById('audio');
+            audio.play().catch(e => console.error("Audio failed. Check file name/path."));
+
+            // Notification delay
+            setTimeout(() => {
+                document.getElementById('notification').classList.add('active');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
